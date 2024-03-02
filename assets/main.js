@@ -34,25 +34,31 @@ boxes.forEach((box) => {
         playerO = true;
       }
       box.classList.add('clicked');
+      box.classList.add('check');
       checkWinner();
+      withdrawGame();
     }
   });
 });
 
+// functionality for new game
 newGame.addEventListener('click', () => {
   enableAll();
 })
-
 
 let enableAll = () => {
   boxes.forEach((box) => {
     if (box.classList.contains('clicked')) {
       box.classList.remove('clicked');
+      box.classList.remove('check');
       box.innerText = '';
       winText.innerText = '';
     }
   });
 }
+
+
+// functionality for checking winner and disabling other boxes when winner is declared
 let disableAll = () => {
   boxes.forEach((box) => {
     if (!box.classList.contains('clicked')) {
@@ -73,10 +79,28 @@ const checkWinner = () => {
      let pos3 = boxes[pattern[2]].innerText;
 
      if (pos1 != '' && pos2 != '' && pos3 != '') {
-      if(pos1 == pos2 & pos2 == pos3) {
-          console.log('winner is'+ ' ' + pos1);
+      if(pos1 == pos2 && pos2 == pos3) {
           showWinner(pos1);
-      }
+      } 
      }
   }
 }
+
+// functionality in case of game withdraw
+const withdrawGame = () => {
+  let allChecked = true;
+
+  for (let box of boxes) {
+    if (!box.classList.contains('check')) {
+      allChecked = false;
+      break; 
+    }
+  }
+  
+  if (allChecked && !winText.innerText) {
+    winText.innerText = 'Match Draw, start a new game';
+    return true; 
+  }
+
+  return false;
+  }

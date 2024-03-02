@@ -74,6 +74,7 @@ body {
     font-size: 28px;
     margin-top: 20px;
     letter-spacing: 2px;
+    cursor: pointer;
 }
 
 /* Responsive css start */
